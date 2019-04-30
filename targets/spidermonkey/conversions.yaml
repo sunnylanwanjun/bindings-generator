@@ -100,6 +100,8 @@ conversions:
     "SubImageOption": "ok &= seval_to_TextureSubImageOption(${in_value}, &${out_value})"
     "ImageOption": "ok &= seval_to_TextureImageOption(${in_value}, &${out_value})"
     "String": "${out_value} = ${in_value}.toStringForce().c_str()"
+    "@Vector<spine::String.*>": "ok &= seval_to_spine_Vector_String(${in_value}, &${out_value})"
+    "@Vector<spine::((?!String).)*>": "ok &= seval_to_spine_Vector_T_ptr(${in_value}, &${out_value})"
     object: "ok &= seval_to_native_ptr(${in_value}, &${out_value})"
 
   from_native:
@@ -169,7 +171,7 @@ conversions:
     "VertexFormat": "ok &= VertexFormat_to_seval(${in_value}, &${out_value})"
     "se_object_ptr": "${out_value}.setObject(${in_value})"
     "String":  "${out_value}.setString(${in_value}.buffer())"
-    "@(?:\\bBoneData\\b|\\bSkeleton\\b|\\bColor\\b|\\bEventData\\b|\\bIkConstraintData\\b|\\bPathConstraintData\\b|\\bTransformConstraintData\\b)+(?!\\*)+":  "ok &= native_ptr_to_rooted_seval<${ntype.replace('const ', '').replace('&', '')}>((${ntype.replace('const ', '').replace('&', '')}*)&${in_value}, &${out_value})"
+    "@(?:\\bBoneData\\b|\\bSkeleton\\b|\\bColor\\b|\\bEventData\\b|\\bIkConstraintData\\b|\\bPathConstraintData\\b|\\bTransformConstraintData\\b|\\bBone\\b|\\bSlotData\\b)+(?!\\*)+":  "ok &= native_ptr_to_rooted_seval<${ntype.replace('const ', '').replace('&', '')}>((${ntype.replace('const ', '').replace('&', '')}*)&${in_value}, &${out_value})"
     "@Vector<spine::((?!String).)*>": "ok &= spine_Vector_T_ptr_to_seval(${in_value}, &${out_value})"
     "@Vector<.*(\\bshort\\b|\\bfloat\\b)+>": "ok &= spine_Vector_T_to_seval(${in_value}, &${out_value})"
     "@Vector<spine::String.*>": "ok &= spine_Vector_String_to_seval(${in_value}, &${out_value})"
