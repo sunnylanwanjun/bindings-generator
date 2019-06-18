@@ -102,6 +102,7 @@ conversions:
     "String": "${out_value} = ${in_value}.toStringForce().c_str()"
     "@Vector<spine::String.*>": "ok &= seval_to_spine_Vector_String(${in_value}, &${out_value})"
     "@Vector<spine::((?!String).)*>": "ok &= seval_to_spine_Vector_T_ptr(${in_value}, &${out_value})"
+    "se_object_ptr": "${out_value} = ${in_value}.toObject()"
     object: "ok &= seval_to_native_ptr(${in_value}, &${out_value})"
 
   from_native:
